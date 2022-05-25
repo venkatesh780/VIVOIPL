@@ -11,22 +11,22 @@ public class Main {
 
 	public static final int MATCH_ID = 0;
 	public static final int SEASON = 1;
-	// public static final int CITY=2;
-	// public static final int DATE=3;
-	// public static final int TEAM1=4;
-	// public static final int TEAM2=5;
+	public static final int CITY=2;
+	public static final int DATE=3;
+	public static final int TEAM1=4;
+	public static final int TEAM2=5;
 	public static final int TOSS_WINNER = 6;
-	// public static final int TOSS_DECISSION=7;
-	// public static final int RESULT=8;
-	// public static final int DL_APPLIED=9;
+	public static final int TOSS_DECISSION=7;
+	public static final int RESULT=8;
+	public static final int DL_APPLIED=9;
 	public static final int WINNER = 10;
-	// public static final int WIN_BY_RUNS=11;
-	// public static final int WIN_BY_WICKETS=12;
-	// public static final int PLYAER_OF_MATCH=13;
-	// public static final int VENUE=14;
-	// public static final int UMPIRE1=15;
-	// public static final int UMPIRE2=16;
-	// public static final int UMPIRE3=17;
+	public static final int WIN_BY_RUNS=11;
+	public static final int WIN_BY_WICKETS=12;
+	public static final int PLYAER_OF_MATCH=13;
+	public static final int VENUE=14;
+	public static final int UMPIRE1=15;
+	public static final int UMPIRE2=16;
+	public static final int UMPIRE3=17;
 
 	public static final int DELIVERY_MATCH_ID = 0;
 	public static final int INNIGS = 1;
@@ -90,6 +90,7 @@ public class Main {
 
 		try {
 			int skipFirstLine = 0;
+			
 			while ((line = reader.readLine()) != null) {
 				if (skipFirstLine == 0) {
 					skipFirstLine = 1;
@@ -208,7 +209,7 @@ public class Main {
 			}
 		}
 			
-		System.out.println("Number of matches own a team in a all seasons: ");
+		 System.out.println("Number of matches own a team in a all seasons: ");
 		 System.out.println(noMatchesOwnPerTeam);
 
 	}
@@ -222,25 +223,21 @@ public class Main {
 			}
 
 		}
-
+		
 		for (Delivery deliver : deliveries) {
-			for (Integer matchId : matchIds2016) {
 				int index = Integer.parseInt(deliver.getDeliveryMatchId());
-				if (matchId == index) {
-					int extras = Integer.parseInt(deliver.getExtraRuns());
-					if (teamsConscedRuns.containsKey(deliver.getBattingTeam())) {
-						teamsConscedRuns.put(deliver.getBattingTeam(),
-								teamsConscedRuns.get(deliver.getBattingTeam()) + extras);
-					} else {
-						teamsConscedRuns.put(deliver.getBattingTeam(), extras);
-					}
+				if(matchIds2016.contains(index)) {
+						int extras = Integer.parseInt(deliver.getExtraRuns());
+						if (teamsConscedRuns.containsKey(deliver.getBattingTeam())) {
+							teamsConscedRuns.put(deliver.getBattingTeam(),
+									teamsConscedRuns.get(deliver.getBattingTeam()) + extras);
+						} else {
+							teamsConscedRuns.put(deliver.getBattingTeam(), extras);
+						}
 				}
-				;
-
-			}
 		}
 		System.out.println("Each team consced runs in 2016 season: ");
-		 System.out.println(teamsConscedRuns);
+		System.out.println(teamsConscedRuns);
 
 	}
 
@@ -257,17 +254,17 @@ public class Main {
 
 			int wide = Integer.parseInt(deliver.getWideRuns());
 			int noBall = Integer.parseInt(deliver.getNoBall());
+			int deliveryId = Integer.parseInt(deliver.getDeliveryMatchId());
 			int numBalls = 0;
 
 			if ((wide == 0) && (noBall == 0)) {
 				numBalls = 1;
 			}
 			
-			for (Integer matchId : matchIds2015) {
+			if (matchIds2015.contains(deliveryId)) {
 				
-				int deliveryId = Integer.parseInt(deliver.getDeliveryMatchId());
 				
-				if (matchId == deliveryId) {
+				
 					
 					int totalRuns = Integer.parseInt(deliver.getTotalRuns());
 					
@@ -289,7 +286,6 @@ public class Main {
 					{
 						numberOfbowledBalls.put(deliver.getBowler(), numBalls);
 					}
-				}
 			}
 
 		}
